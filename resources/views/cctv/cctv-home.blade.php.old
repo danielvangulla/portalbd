@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Video.js RTMP Example Embed</title>
+  
+  
+  <link href="{{ URL::asset('css/video-js.css') }}" rel="stylesheet">
+  <script src="{{ URL::asset('js/video.js') }}"></script>
+</head>
+<body>
+  <h1>Studio Big Data</h1>
+  Tes RTMP Player Live CCTV Manado
+
+  Kawasaki Bahu
+  <video id="my_video_1" class="video-js vjs-default-skin" controls preload="auto" width="640" height="268" data-setup='{}'>
+    <source src="rtmp://36.67.90.92:1935/live/bahukawasaki.stream" type='application/x-mpegURL'>
+  </video>
+  
+  <script>
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,870 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.wms.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/WilayahAdministrasiKelurahan_0.js"></script>
+        <script src="data/Pendidikan_2.js"></script>
+        <script src="data/JaringanAirBersih_3.js"></script>
+        <script src="data/GarduInduk_4.js"></script>
+        <script src="data/Peribadatan_5.js"></script>
+        <script src="data/SPBU_6.js"></script>
+        <script src="data/Telekomunikasi_7.js"></script>
+        <script src="data/SumberAirBersih_8.js"></script>
+        <script src="data/Hotel_9.js"></script>
+        <script src="data/IPAL_10.js"></script>
+        <script src="data/Kesehatan_11.js"></script>
+        <script src="data/LampuLaluLintas_12.js"></script>
+        <script src="data/Terminal_13.js"></script>
+        <script src="data/Swalayan_14.js"></script>
+        <script src="data/TPA_15.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[1.3967872102183398,124.57618017217932],[1.6554484695985685,125.03782863787107]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="http://bigdata.manadokota.go.id" target="_blank">BIG DATA KOTA MANADO</a>');
+        var measureControl = new L.Control.Measure({
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares',
+            position: 'topleft',
+        });
+        measureControl.addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            map.setMaxBounds(map.getBounds());
+        }
+        function pop_WilayahAdministrasiKelurahan_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Kecamatan : </b><br>' + (feature.properties['Kecamatan'] !== null ? Autolinker.link(String(feature.properties['Kecamatan'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Kelurahan : </b><br>' + (feature.properties['Kelurahan'] !== null ? Autolinker.link(String(feature.properties['Kelurahan'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_WilayahAdministrasiKelurahan_0_0() {
+            return {
+                pane: 'pane_WilayahAdministrasiKelurahan_0',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0,
+                fill: true,
+                fillOpacity: 0.5,
+                fillColor: 'rgba(52,229,182,1.0)',
+            }
+        }
+        map.createPane('pane_WilayahAdministrasiKelurahan_0');
+        map.getPane('pane_WilayahAdministrasiKelurahan_0').style.zIndex = 400;
+        map.getPane('pane_WilayahAdministrasiKelurahan_0').style['mix-blend-mode'] = 'normal';
+        var layer_WilayahAdministrasiKelurahan_0 = new L.geoJson(json_WilayahAdministrasiKelurahan_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_WilayahAdministrasiKelurahan_0',
+            onEachFeature: pop_WilayahAdministrasiKelurahan_0,
+            style: style_WilayahAdministrasiKelurahan_0_0,
+        });
+        bounds_group.addLayer(layer_WilayahAdministrasiKelurahan_0);
+        map.addLayer(layer_WilayahAdministrasiKelurahan_0);
+        var overlay_Bangunan_1 = L.WMS.layer("http://bigdata.manadokota.go.id:8080/geoserver/Peta_Tematik/wms?", "Bangunan", {
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : false,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1
+        });
+        map.addLayer(overlay_Bangunan_1);
+        function pop_Pendidikan_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Fungsi : </b><br>' + (feature.properties['JNSPDK'] !== null ? Autolinker.link(String(feature.properties['JNSPDK'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['NAMOBJ'] !== null ? Autolinker.link(String(feature.properties['NAMOBJ'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Pendidikan_2_0(feature) {
+            switch(String(feature.properties[''])) {
+                default:
+                    return {
+                pane: 'pane_Pendidikan_2',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis school-01.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Pendidikan_2');
+        map.getPane('pane_Pendidikan_2').style.zIndex = 402;
+        map.getPane('pane_Pendidikan_2').style['mix-blend-mode'] = 'normal';
+        var layer_Pendidikan_2 = new L.geoJson(json_Pendidikan_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Pendidikan_2',
+            onEachFeature: pop_Pendidikan_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Pendidikan_2_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Pendidikan_2);
+        map.addLayer(layer_Pendidikan_2);
+        function pop_JaringanAirBersih_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['Layer'] !== null ? Autolinker.link(String(feature.properties['Layer'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Tipe : </b><br>' + (feature.properties['Tipe'] !== null ? Autolinker.link(String(feature.properties['Tipe'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_JaringanAirBersih_3_0(feature) {
+            switch(String(feature.properties['Tipe'])) {
+                case 'jaringan-air-bersih':
+                    return {
+                pane: 'pane_JaringanAirBersih_3',
+                opacity: 1,
+                color: 'rgba(116,183,198,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+            }
+                    break;
+            }
+        }
+        function style_JaringanAirBersih_3_1(feature) {
+            switch(String(feature.properties['Tipe'])) {
+                case 'jaringan-air-bersih':
+                    return {
+                pane: 'pane_JaringanAirBersih_3',
+                opacity: 1,
+                color: 'rgba(192,223,255,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'round',
+                weight: 1.0,
+                fillOpacity: 0,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_JaringanAirBersih_3');
+        map.getPane('pane_JaringanAirBersih_3').style.zIndex = 403;
+        map.getPane('pane_JaringanAirBersih_3').style['mix-blend-mode'] = 'normal';
+        var layer_JaringanAirBersih_3 = new L.geoJson.multiStyle(json_JaringanAirBersih_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_JaringanAirBersih_3',
+            onEachFeature: pop_JaringanAirBersih_3,
+            styles: [style_JaringanAirBersih_3_0,style_JaringanAirBersih_3_1,]
+        });
+        bounds_group.addLayer(layer_JaringanAirBersih_3);
+        map.addLayer(layer_JaringanAirBersih_3);
+        function pop_GarduInduk_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['nama'] !== null ? Autolinker.link(String(feature.properties['nama'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Jenis : </b><br>' + (feature.properties['jenis'] !== null ? Autolinker.link(String(feature.properties['jenis'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_GarduInduk_4_0(feature) {
+            switch(String(feature.properties['jenis'])) {
+                case 'Gardu Induk':
+                    return {
+                pane: 'pane_GarduInduk_4',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/gardu.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_GarduInduk_4');
+        map.getPane('pane_GarduInduk_4').style.zIndex = 404;
+        map.getPane('pane_GarduInduk_4').style['mix-blend-mode'] = 'normal';
+        var layer_GarduInduk_4 = new L.geoJson(json_GarduInduk_4, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_GarduInduk_4',
+            onEachFeature: pop_GarduInduk_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_GarduInduk_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_GarduInduk_4);
+        map.addLayer(layer_GarduInduk_4);
+        function pop_Peribadatan_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['nama'] !== null ? Autolinker.link(String(feature.properties['nama'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Keterangan : </b><br>' + (feature.properties['keterangan'] !== null ? Autolinker.link(String(feature.properties['keterangan'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Peribadatan_5_0(feature) {
+            switch(String(feature.properties['keterangan'])) {
+                case 'GEREJA':
+                    return {
+                pane: 'pane_Peribadatan_5',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis religi-01.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'KLENTENG':
+                    return {
+                pane: 'pane_Peribadatan_5',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis religi-02.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'MASJID':
+                    return {
+                pane: 'pane_Peribadatan_5',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis religi-05.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'PURA':
+                    return {
+                pane: 'pane_Peribadatan_5',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis religi-03.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'VIHARA':
+                    return {
+                pane: 'pane_Peribadatan_5',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis religi-04.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Peribadatan_5');
+        map.getPane('pane_Peribadatan_5').style.zIndex = 405;
+        map.getPane('pane_Peribadatan_5').style['mix-blend-mode'] = 'normal';
+        var layer_Peribadatan_5 = new L.geoJson(json_Peribadatan_5, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Peribadatan_5',
+            onEachFeature: pop_Peribadatan_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Peribadatan_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Peribadatan_5);
+        map.addLayer(layer_Peribadatan_5);
+        function pop_SPBU_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['Comment'] !== null ? Autolinker.link(String(feature.properties['Comment'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Keterangan : </b><br>' + (feature.properties['keterangan'] !== null ? Autolinker.link(String(feature.properties['keterangan'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SPBU_6_0(feature) {
+            switch(String(feature.properties[''])) {
+                default:
+                    return {
+                pane: 'pane_SPBU_6',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/gas.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_SPBU_6');
+        map.getPane('pane_SPBU_6').style.zIndex = 406;
+        map.getPane('pane_SPBU_6').style['mix-blend-mode'] = 'normal';
+        var layer_SPBU_6 = new L.geoJson(json_SPBU_6, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_SPBU_6',
+            onEachFeature: pop_SPBU_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_SPBU_6_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_SPBU_6);
+        map.addLayer(layer_SPBU_6);
+        function pop_Telekomunikasi_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['nama'] !== null ? Autolinker.link(String(feature.properties['nama'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Jenis : </b><br>' + (feature.properties['jenis'] !== null ? Autolinker.link(String(feature.properties['jenis'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Telekomunikasi_7_0(feature) {
+            switch(String(feature.properties[''])) {
+                default:
+                    return {
+                pane: 'pane_Telekomunikasi_7',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/poi_tower_power.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Telekomunikasi_7');
+        map.getPane('pane_Telekomunikasi_7').style.zIndex = 407;
+        map.getPane('pane_Telekomunikasi_7').style['mix-blend-mode'] = 'normal';
+        var layer_Telekomunikasi_7 = new L.geoJson(json_Telekomunikasi_7, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Telekomunikasi_7',
+            onEachFeature: pop_Telekomunikasi_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Telekomunikasi_7_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Telekomunikasi_7);
+        map.addLayer(layer_Telekomunikasi_7);
+        function pop_SumberAirBersih_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Tipe : </b><br>' + (feature.properties['tipe'] !== null ? Autolinker.link(String(feature.properties['tipe'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_SumberAirBersih_8_0(feature) {
+            switch(String(feature.properties['tipe'])) {
+                case 'hidrant':
+                    return {
+                pane: 'pane_SumberAirBersih_8',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Hydrant.svg',
+            iconSize: [11.399999999999999, 11.399999999999999]
+        }),
+            }
+                    break;
+                case 'WTP':
+                    return {
+                pane: 'pane_SumberAirBersih_8',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ian-symbol-water-resource-management.svg',
+            iconSize: [11.399999999999999, 11.399999999999999]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_SumberAirBersih_8');
+        map.getPane('pane_SumberAirBersih_8').style.zIndex = 408;
+        map.getPane('pane_SumberAirBersih_8').style['mix-blend-mode'] = 'normal';
+        var layer_SumberAirBersih_8 = new L.geoJson(json_SumberAirBersih_8, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_SumberAirBersih_8',
+            onEachFeature: pop_SumberAirBersih_8,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_SumberAirBersih_8_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_SumberAirBersih_8);
+        map.addLayer(layer_SumberAirBersih_8);
+        function pop_Hotel_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Keterangan : </b><br>' + (feature.properties['keterangan'] !== null ? Autolinker.link(String(feature.properties['keterangan'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['nama'] !== null ? Autolinker.link(String(feature.properties['nama'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Hotel_9_0(feature) {
+            switch(String(feature.properties[''])) {
+                default:
+                    return {
+                pane: 'pane_Hotel_9',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/accommodation_hotel2.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Hotel_9');
+        map.getPane('pane_Hotel_9').style.zIndex = 409;
+        map.getPane('pane_Hotel_9').style['mix-blend-mode'] = 'normal';
+        var layer_Hotel_9 = new L.geoJson(json_Hotel_9, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Hotel_9',
+            onEachFeature: pop_Hotel_9,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Hotel_9_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Hotel_9);
+        map.addLayer(layer_Hotel_9);
+        function pop_IPAL_10(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['Comment'] !== null ? Autolinker.link(String(feature.properties['Comment'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Keterangan : </b><br>' + (feature.properties['keterangan'] !== null ? Autolinker.link(String(feature.properties['keterangan'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_IPAL_10_0(feature) {
+            switch(String(feature.properties[''])) {
+                default:
+                    return {
+                pane: 'pane_IPAL_10',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/food_drinkingtap.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_IPAL_10');
+        map.getPane('pane_IPAL_10').style.zIndex = 410;
+        map.getPane('pane_IPAL_10').style['mix-blend-mode'] = 'normal';
+        var layer_IPAL_10 = new L.geoJson(json_IPAL_10, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_IPAL_10',
+            onEachFeature: pop_IPAL_10,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_IPAL_10_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_IPAL_10);
+        map.addLayer(layer_IPAL_10);
+        function pop_Kesehatan_11(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Keterangan : </b><br>' + (feature.properties['keterangan'] !== null ? Autolinker.link(String(feature.properties['keterangan'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['nama'] !== null ? Autolinker.link(String(feature.properties['nama'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Kesehatan_11_0(feature) {
+            switch(String(feature.properties['ket'])) {
+                case 'Apotek':
+                    return {
+                pane: 'pane_Kesehatan_11',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis-03.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'Klinik':
+                    return {
+                pane: 'pane_Kesehatan_11',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis-06.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'Praktek Dokter':
+                    return {
+                pane: 'pane_Kesehatan_11',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis-02.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'Puskesmas':
+                    return {
+                pane: 'pane_Kesehatan_11',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis-05.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'Rumah Sakit':
+                    return {
+                pane: 'pane_Kesehatan_11',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/ICON-francis-01.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Kesehatan_11');
+        map.getPane('pane_Kesehatan_11').style.zIndex = 411;
+        map.getPane('pane_Kesehatan_11').style['mix-blend-mode'] = 'normal';
+        var layer_Kesehatan_11 = new L.geoJson(json_Kesehatan_11, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Kesehatan_11',
+            onEachFeature: pop_Kesehatan_11,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Kesehatan_11_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Kesehatan_11);
+        map.addLayer(layer_Kesehatan_11);
+        function pop_LampuLaluLintas_12(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['nama'] !== null ? Autolinker.link(String(feature.properties['nama'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_LampuLaluLintas_12_0(feature) {
+            switch(String(feature.properties[''])) {
+                default:
+                    return {
+                pane: 'pane_LampuLaluLintas_12',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/transport_traffic_lights.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_LampuLaluLintas_12');
+        map.getPane('pane_LampuLaluLintas_12').style.zIndex = 412;
+        map.getPane('pane_LampuLaluLintas_12').style['mix-blend-mode'] = 'normal';
+        var layer_LampuLaluLintas_12 = new L.geoJson(json_LampuLaluLintas_12, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_LampuLaluLintas_12',
+            onEachFeature: pop_LampuLaluLintas_12,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_LampuLaluLintas_12_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_LampuLaluLintas_12);
+        map.addLayer(layer_LampuLaluLintas_12);
+        function pop_Terminal_13(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['nama'] !== null ? Autolinker.link(String(feature.properties['nama'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Jenis : </b><br>' + (feature.properties['jenis'] !== null ? Autolinker.link(String(feature.properties['jenis'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Terminal_13_0(feature) {
+            switch(String(feature.properties['jenis'])) {
+                case 'Bandar Udara':
+                    return {
+                pane: 'pane_Terminal_13',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/transport_airport2.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'Pelabuhan':
+                    return {
+                pane: 'pane_Terminal_13',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/transport_port.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+                case 'Terminal Bis':
+                    return {
+                pane: 'pane_Terminal_13',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/transport_bus_station.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Terminal_13');
+        map.getPane('pane_Terminal_13').style.zIndex = 413;
+        map.getPane('pane_Terminal_13').style['mix-blend-mode'] = 'normal';
+        var layer_Terminal_13 = new L.geoJson(json_Terminal_13, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Terminal_13',
+            onEachFeature: pop_Terminal_13,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Terminal_13_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Terminal_13);
+        map.addLayer(layer_Terminal_13);
+        function pop_Swalayan_14(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['nama'] !== null ? Autolinker.link(String(feature.properties['nama'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Minimarket : </b><br>' + (feature.properties['minimarket'] !== null ? Autolinker.link(String(feature.properties['minimarket'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Keterangan : </b><br>' + (feature.properties['keterangan'] !== null ? Autolinker.link(String(feature.properties['keterangan'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Swalayan_14_0() {
+            return {
+                pane: 'pane_Swalayan_14',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/599ee0d68d0c6ca20dc6db5649b7ea4d.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+        }
+        map.createPane('pane_Swalayan_14');
+        map.getPane('pane_Swalayan_14').style.zIndex = 414;
+        map.getPane('pane_Swalayan_14').style['mix-blend-mode'] = 'normal';
+        var layer_Swalayan_14 = new L.geoJson(json_Swalayan_14, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Swalayan_14',
+            onEachFeature: pop_Swalayan_14,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_Swalayan_14_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Swalayan_14);
+        map.addLayer(layer_Swalayan_14);
+        function pop_TPA_15(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"> <b>Nama : </b><br>' + (feature.properties['nama'] !== null ? Autolinker.link(String(feature.properties['nama'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"> <b>Keterangan : </b><br>' + (feature.properties['keterangan'] !== null ? Autolinker.link(String(feature.properties['keterangan'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_TPA_15_0(feature) {
+            switch(String(feature.properties[''])) {
+                default:
+                    return {
+                pane: 'pane_TPA_15',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/amenity_waste_bin.svg',
+            iconSize: [19.0, 19.0]
+        }),
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_TPA_15');
+        map.getPane('pane_TPA_15').style.zIndex = 415;
+        map.getPane('pane_TPA_15').style['mix-blend-mode'] = 'normal';
+        var layer_TPA_15 = new L.geoJson(json_TPA_15, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_TPA_15',
+            onEachFeature: pop_TPA_15,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_TPA_15_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_TPA_15);
+        map.addLayer(layer_TPA_15);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'TPA<br /><table><tr><td style="text-align: center;"><img src="legend/TPA_15_0.png" /></td><td></td></tr></table>': layer_TPA_15,'<img src="legend/Swalayan_14.png" /> Swalayan': layer_Swalayan_14,'Terminal<br /><table><tr><td style="text-align: center;"><img src="legend/Terminal_13_BandarUdara0.png" /></td><td>Bandar Udara</td></tr><tr><td style="text-align: center;"><img src="legend/Terminal_13_Pelabuhan1.png" /></td><td>Pelabuhan</td></tr><tr><td style="text-align: center;"><img src="legend/Terminal_13_TerminalBis2.png" /></td><td>Terminal Bis</td></tr></table>': layer_Terminal_13,'Lampu Lalu Lintas<br /><table><tr><td style="text-align: center;"><img src="legend/LampuLaluLintas_12_0.png" /></td><td></td></tr></table>': layer_LampuLaluLintas_12,'Kesehatan<br /><table><tr><td style="text-align: center;"><img src="legend/Kesehatan_11_Apotek0.png" /></td><td>Apotek</td></tr><tr><td style="text-align: center;"><img src="legend/Kesehatan_11_Klinik1.png" /></td><td>Klinik</td></tr><tr><td style="text-align: center;"><img src="legend/Kesehatan_11_PraktekDokter2.png" /></td><td>Praktek Dokter</td></tr><tr><td style="text-align: center;"><img src="legend/Kesehatan_11_Puskesmas3.png" /></td><td>Puskesmas</td></tr><tr><td style="text-align: center;"><img src="legend/Kesehatan_11_RumahSakit4.png" /></td><td>Rumah Sakit</td></tr></table>': layer_Kesehatan_11,'IPAL<br /><table><tr><td style="text-align: center;"><img src="legend/IPAL_10_0.png" /></td><td></td></tr></table>': layer_IPAL_10,'Hotel<br /><table><tr><td style="text-align: center;"><img src="legend/Hotel_9_0.png" /></td><td></td></tr></table>': layer_Hotel_9,'Sumber Air Bersih<br /><table><tr><td style="text-align: center;"><img src="legend/SumberAirBersih_8_hidrant0.png" /></td><td>hidrant</td></tr><tr><td style="text-align: center;"><img src="legend/SumberAirBersih_8_WTP1.png" /></td><td>WTP</td></tr></table>': layer_SumberAirBersih_8,'Telekomunikasi<br /><table><tr><td style="text-align: center;"><img src="legend/Telekomunikasi_7_0.png" /></td><td></td></tr></table>': layer_Telekomunikasi_7,'SPBU<br /><table><tr><td style="text-align: center;"><img src="legend/SPBU_6_0.png" /></td><td></td></tr></table>': layer_SPBU_6,'Peribadatan<br /><table><tr><td style="text-align: center;"><img src="legend/Peribadatan_5_GEREJA0.png" /></td><td>GEREJA</td></tr><tr><td style="text-align: center;"><img src="legend/Peribadatan_5_KLENTENG1.png" /></td><td>KLENTENG</td></tr><tr><td style="text-align: center;"><img src="legend/Peribadatan_5_MASJID2.png" /></td><td>MASJID</td></tr><tr><td style="text-align: center;"><img src="legend/Peribadatan_5_PURA3.png" /></td><td>PURA</td></tr><tr><td style="text-align: center;"><img src="legend/Peribadatan_5_VIHARA4.png" /></td><td>VIHARA</td></tr></table>': layer_Peribadatan_5,'Gardu Induk<br /><table><tr><td style="text-align: center;"><img src="legend/GarduInduk_4_GarduInduk0.png" /></td><td>Gardu Induk</td></tr></table>': layer_GarduInduk_4,'Jaringan Air Bersih<br /><table><tr><td style="text-align: center;"><img src="legend/JaringanAirBersih_3_jaringanairbersih0.png" /></td><td>jaringan-air-bersih</td></tr></table>': layer_JaringanAirBersih_3,'Pendidikan<br /><table><tr><td style="text-align: center;"><img src="legend/Pendidikan_2_0.png" /></td><td></td></tr></table>': layer_Pendidikan_2,"Bangunan": overlay_Bangunan_1,'<img src="legend/WilayahAdministrasiKelurahan_0.png" /> Wilayah Administrasi Kelurahan': layer_WilayahAdministrasiKelurahan_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        map.addControl(new L.Control.Search({
+            layer: layer_WilayahAdministrasiKelurahan_0,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Kelurahan'}));
+        </script>
+    </body>
+</html>
